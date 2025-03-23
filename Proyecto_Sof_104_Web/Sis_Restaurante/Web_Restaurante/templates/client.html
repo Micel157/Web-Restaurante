@@ -1,0 +1,81 @@
+{% extends 'home.html' %}
+
+{% load static %}
+
+{% block title %}Clientes | Sistema de Restaurante ADM{% endblock %}
+
+{% block btn-header-content %}<a href="{% url 'home' %}" class="btn-inicio">Volver a Inicio</a>{% endblock %}
+
+{% block content %}
+    
+    <div class="sidebar">
+        <div class="form-container">
+            {% block sidebar_content %}
+                <div class="client-content">
+                    <h2>Clientes</h2>
+                    <hr>
+                    <form method="post" id="client-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="cliente_id" id="cliente_id">
+                        <label for="name_client">Nombre:</label>
+                        <input type="text" name="nombre" id="name_client">
+                        <label for="tel_client">Teléfono:</label>
+                        <input type="text" name="telefono" id="tel_client">
+                        <label for="email_client">Correo:</label>
+                        <input type="email" name="correo" id="email_client">
+                        <ul class="sidebar-btn-list">
+                            <li><button type="submit" class="btn-sidebar" name="agregar">Agregar</button></li>
+                            <li>
+                                <button type="submit" class="btn-sidebar" name="buscar">
+                                    Buscar
+                                    <span class="tooltip">
+                                        <i class="info-icon">ℹ️</i>
+                                        <span class="tooltip-text">Para buscar un cliente solo se necesita su nombre</span>
+                                    </span>
+                                </button>
+                            </li>
+                            <li><button type="submit" class="btn-sidebar" name="actualizar">Actualizar</button></li>
+                            <li><button type="submit" class="btn-sidebar" name="eliminar">Eliminar</button></li>
+                        </ul>
+                    </form>
+                </div>  
+            {% endblock %}
+        </div>
+    </div>
+    
+    <div class="content">
+        {% block table_content %}
+            <table class="clients-table">
+                <thead>
+                    <tr>
+                        <th colspan="4" style="text-align: center; background-color: #b25600;">Lista de Clientes</th>
+                        <th style="background-color: #b25600;"><button type="button" id="show-all-clients" class="btn-show-all btn-table">Mostrar Todos</button></th>
+                    </tr>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Teléfono</th>
+                        <th>Correo</th>
+                        <th>Fecha de registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr onclick="fillForm('{{ cliente.id }}', '{{ cliente.nombre }}', '{{ cliente.telefono }}', '{{ cliente.correo }}')">
+                        <td>{{ cliente.id }}</td>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.correo }}</td>
+                        <td>{{ cliente.fecha_registro }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+    </div>
+    
+    {% block scripts_content %}
+        <script src="{% static 'js/client.js' %}"></script>
+    {% endblock %}
+
+{% endblock %}

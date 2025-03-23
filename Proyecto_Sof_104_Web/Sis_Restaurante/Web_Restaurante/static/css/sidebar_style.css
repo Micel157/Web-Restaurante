@@ -1,0 +1,335 @@
+.sidebar {
+    width: 360px;
+    max-width: 360px;
+    background-color: #585858d5;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: 100vh
+}
+
+.form-container {
+    background-color: #ffffff80; /* Fondo blanco semi-transparente */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 88%;
+    max-width: 88%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+label {
+    display: block; /* Hace que el label ocupe toda la línea */
+    margin-bottom: 5px; /* Espacio entre el label y el campo */
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="tel"],
+.form-container select[id="genero"],
+.form-container select[id="plato"],
+.form-container select[id="order_cliente"],
+.form-container select[id="order_estado"],
+.form-container input[type="number"],
+.form-container input[type="date"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container input[name="cantidad"]{
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;   
+}
+
+.form-container select[id="order_the_menu"]{
+    width: 198px;
+    padding: 10px;
+    margin: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.menu-select{
+    width: 198px;
+    padding: 10px;
+    margin: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.form-container input[name="cantidad"]{
+    padding-left: 10px;
+    width: 30px;
+}
+.form-container textarea[id="dish_description"]{
+    height: 70px; 
+    width: 90%;
+    max-width: 198px ;
+    min-width: 198px ;
+    min-height: 70px;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+.sidebar-btn-list {
+    display: grid; /* Utiliza grid para la disposición en cuadrícula */
+    grid-template-columns: repeat(2, 1fr); /* Crea 2 columnas iguales */
+    gap: 5px; /* Espacio mínimo entre los botones */
+    width: 100%; /* Ancho total del contenedor */
+    padding: 0; /* Elimina el padding del contenedor */
+    margin: 10px 0; /* Asegúrate de que el margen sea mínimo */
+}
+
+.sidebar-btn-list li {
+    width: 100%;
+    margin: 0; /* Elimina cualquier margen alrededor de los elementos de la lista */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.btn-sidebar {
+    background-color: #ff7b00;
+    color: white;
+    font-size: 16px;
+    width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
+    border: none;
+    padding: 10px; /* Reduce el padding para hacer los botones más compactos */
+    margin: 0; /* Elimina el margen para reducir el espacio entre botones */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn_invoice{ 
+    background-color: #ff7b00;
+    color: white;
+    font-size: 16px;
+    width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
+    border: none;
+    padding: 10px; /* Reduce el padding para hacer los botones más compactos */
+    margin: 0; /* Elimina el margen para reducir el espacio entre botones */
+    margin-left: 75px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-sidebar:hover {
+    background-color: #798491;
+}
+
+.btn-red:hover{
+    background-color: red;
+}
+
+.content {
+    flex-grow: 1;
+    background-color: #ffffff6a;
+    min-height: 100vh;  /* Asegura que tome al menos toda la altura de la pantalla */
+    overflow-y: auto;  /* Habilita el desplazamiento vertical si es necesario */
+    padding: 20px;  /* Ajusta el espacio interno */
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-table{
+    background-color: #100f0f;
+    color: white;
+    font-size: 16px;
+    width: 100%; /* Asegura que los botones ocupen todo el ancho disponible */
+    border: none;
+    padding: 10px; /* Reduce el padding para hacer los botones más compactos */
+    margin: 0; /* Elimina el margen para reducir el espacio entre botones */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-table:hover {
+    background-color: #798491;
+}
+.clients-table,
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+.clients-table th, 
+.clients-table td,
+.menu-table th,
+.menu-table td {
+    border: 1px solid #414141;
+    padding: 8px;
+    text-align: left;
+}
+
+.clients-table th, .menu-table th {
+    background-color: #ff7b00;
+    color: black;
+}
+
+.clients-table tr, .menu-table tr:nth-child(even) {
+    background-color: #989696;
+}
+
+.clients-table tr, .menu-table tr:hover {
+    background-color: #ddd;
+}
+
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+}
+
+.orders-table th, .orders-table td {
+    border: 1px solid #414141;
+    padding: 8px;
+    text-align: left;
+}
+
+.orders-table th {
+    background-color: #ff7b00;
+    color: black;
+}
+
+.orders-table tr:nth-child(even) {
+    background-color: #989696;
+}
+
+.orders-table tr:hover {
+    background-color: #ddd;
+}
+
+.non-vignette{
+    list-style: none ;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip .tooltip-text::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.info-icon {
+    font-size: 0.8em;
+    margin-left: 0px;
+    cursor: pointer;
+    color: #28492b; /* Color del ícono */
+}
+
+
+.btn-sidebar .tooltip {
+    display: inline-flex;
+    align-items: center;
+}
+#order-platillos .order-platillo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#order-platillos .order-platillo button {
+    width: 40px;
+}
+
+
+#order-platillos .order-platillo button.remove-platillo {
+    margin-left: 3px; /* Reduce el margen izquierdo */
+}
+
+
+.remove-platillo{
+    background-color: #ff0000;
+    color: white;
+    border: none;
+    padding: 8px; /* Reduce el padding para hacer los botones más compactos */
+    margin: 0; /* Elimina el margen para reducir el espacio entre botones */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;   
+}
+
+.btn-add-dish{
+    background-color: #ff7c01;
+    color: white;
+    font-size: 16px;
+    width: 90%; /* Asegura que los botones ocupen todo el ancho disponible */
+    border: none;
+    padding: 10px; /* Reduce el padding para hacer los botones más compactos */
+    margin: 4px;
+    margin-left: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

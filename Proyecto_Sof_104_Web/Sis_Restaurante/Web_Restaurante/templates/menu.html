@@ -1,0 +1,67 @@
+{% extends "client.html" %}
+
+{% load static %}
+
+{% block title %}Menu | Sistema de Restaurante ADM{% endblock %}
+
+{% block sidebar_content %}
+    <div class="Dishes-content">
+        <h2>Menú</h2>
+        <hr>
+        <form method="post" id="menu-form">
+            {% csrf_token %}
+            <input type="hidden" name="dish_id" id="dish_id">
+            <label for="dish_name">Nombre del Platillo:</label>
+            <input type="text" name="nombre" id="dish_name">
+            <label for="dish_description">Descripción:</label>
+            <textarea name="descripcion" id="dish_description"></textarea>
+            <label for="dish_price">Precio:</label>
+            <input type="number" name="precio" id="dish_price" step="0.01">
+            <ul class="sidebar-btn-list">
+                <li><button type="submit" class="btn-sidebar" name="agregar">Agregar</button></li>
+                <li>
+                    <button type="submit" class="btn-sidebar" name="buscar">
+                        Buscar
+                        <span class="tooltip">
+                            <i class="info-icon">ℹ️</i>
+                            <span class="tooltip-text">Para buscar un platillo solo se necesita su nombre</span>
+                        </span>
+                    </button>
+                </li>
+                <li><button type="submit" class="btn-sidebar" name="actualizar">Actualizar</button></li>
+                <li><button type="submit" class="btn-sidebar" name="eliminar">Eliminar</button></li>
+            </ul>
+        </form>
+    </div>  
+{% endblock %}
+
+{% block table_content %}
+    <table class="menu-table">
+        <thead>
+            <tr>
+                <th colspan="3" style="text-align: center; background-color: #b25600;">Lista de Platillos</th>
+                <th style="background-color: #b25600;"><button type="button" id="show-all-clients" class="btn-show-all btn-table">Mostrar Todos</button></th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dish in dishes %}
+            <tr onclick="fillForm('{{ dish.id }}', '{{ dish.nombre }}', '{{ dish.descripcion }}', '{{ dish.precio }}')">
+                <td>{{ dish.id }}</td>
+                <td>{{ dish.nombre }}</td>
+                <td>{{ dish.descripcion }}</td>
+                <td>RD {{ dish.precio }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts_content %}
+    <script src="{% static 'js/menu.js' %}"></script>
+{% endblock %}

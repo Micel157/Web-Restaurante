@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>{% block title %}Sistema de Restaurante ADM{% endblock %}</title>
+   {% load static %}
+   <link rel="preload" as="image" href="{% static 'images/background.webp' %}">
+   <link rel="stylesheet" href="{% static 'css/base_style.css' %}?v=1.1">
+   <link rel="stylesheet" href="{% static 'css/sidebar_style.css' %}?v=1.1">
+</head>
+<body>
+    <div class="header">
+        <h1>Sistema de Restaurante ADM</h1>
+        <div class="user-info">
+            <img src="{% static 'images/icon_perfil.webp' %}" alt="User">
+            <a href="{% url 'logout' %}" class="btn-logout">Cerrar Sesión</a>
+        </div>
+    </div>
+    <div class="header-buttons">
+        <a href="{% url 'client' %}" class="btn">Clientes</a>
+        <a href="{% url 'orders' %}" class="btn">Pedidos</a>
+        <a href="{% url 'menu' %}" class="btn">Menú</a>
+        {% block btn-header-content %}
+        
+        {% endblock %}
+    </div>
+    <div class="container">
+        {% block content %}
+        <div class="container-home">
+            <h2>Bienvenido, {{ user.username }}</h2>
+            <p>¡Nos alegra verte de nuevo!</p>
+            <div class="support-info">
+                <h3>Información de Contacto</h3>
+                <p>Para soporte técnico, contacta a: <a href="mailto:soporte@restauranteadm.com">soporte@restauranteadm.com</a></p> 
+            </div>
+        </div>
+        {% endblock %}
+    </div>        
+</body>
+</html>

@@ -1,0 +1,136 @@
+{% extends "client.html" %}
+
+{% load static %}
+
+{% block title %}Pedidos | Sistema de Restaurante ADM{% endblock %}
+
+{% block sidebar_content %}
+    <div class="orders-content">
+        <h2>Pedidos</h2>
+        <hr>
+        <form method="post" id="order-form">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" id="order_id">
+            <label for="order_cliente">Cliente:</label>
+            <select name="cliente" id="order_cliente">
+                <option value="todos">Todos</option>
+                {% for cliente in clientes %}
+                    <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+                {% endfor %}
+            </select>
+            <label for="order_estado">Estado del Pedido:</label>
+            <select name="estado" id="order_estado">
+                <option value="Pendiente">Pendiente</option>
+                <option value="En proceso">En proceso</option>
+                <option value="Listo">Listo</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+            <div id="order-details">
+                <label for="order_platillo">Platillos:</label>
+                <div id="order-platillos">
+                    <div class="order-platillo">
+                        <select name="menu" class="menu-select" id="order_the_menu">
+                            {% for menu in menus %}
+                                <option value="{{ menu.id }}">{{ menu.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="number" name="cantidad" min="1" value="1" class="menu-cantidad">
+                        <button type="button" class="remove-platillo">X</button>
+                    </div>
+                </div>
+                <button type="button" id="add-platillo" class="btn-add-dish">Agregar Platillo</button>
+            </div>
+            <ul class="sidebar-btn-list">
+                <li><button type="submit" class="btn-sidebar" name="agregar">Agregar</button></li>
+                <li>
+                    <button type="submit" class="btn-sidebar" name="buscar">
+                        Buscar
+                        <span class="tooltip">
+                            <i class="info-icon">ℹ️</i>
+                            <span class="tooltip-text">Para buscar un pedido solo se necesita el nombre del cliente</span>
+                        </span>
+                    </button>
+                </li>
+                <li><button type="submit" class="btn-sidebar" name="actualizar">Actualizar</button></li>
+                <li><button type="submit" class="btn-sidebar" name="eliminar">Eliminar</button></li>
+                <li><button type="button" class="btn_invoice" id="create-invoice">Crear Factura</button></li>
+            </ul>
+        </form>
+    </div>  
+{% endblock %}
+
+{% block table_content %}
+    <table class="orders-table">
+        <thead>
+            <tr>
+                <th colspan="10" style="text-align: center; background-color: #b25600;">Lista de Pedidos</th>
+            </tr>
+            <tr>
+                <th>Cliente</th>
+                <th>Pedidos</th>
+                <th>Precio por plato</th>
+                <th>Precio Total</th>
+                <th>Estado</th>
+                <th>Fecha de Registro</th>
+                <th>Fecha de Actualizacion</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr onclick="fillOrderForm('{{ order.id }}', '{{ order.cliente.id }}', '{{ order.estado }}', [{% for detail in order.orderdetail_set.all %}{ menu_id: '{{ detail.menu.id }}', menu_nombre: '{{ detail.menu.nombre }}', cantidad: '{{ detail.cantidad }}' }{% if not forloop.last %},{% endif %}{% endfor %}])">
+                <td>{{ order.cliente.nombre }}</td>
+                <td>
+                    <ul class="non-vignette">
+                        {% for detail in order.orderdetail_set.all %}
+                            <li>{{ detail.menu.nombre }} - - Cantidad: {{ detail.cantidad }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul class="non-vignette">
+                        {% for detail in order.orderdetail_set.all %}
+                            <li>RD {{ detail.menu.precio }} x {{ detail.cantidad }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>RD {{ order.total_precio }}</td>
+                <td>{{ order.estado }}</td>
+                <td>{{ order.cliente.fecha_registro }}</td>
+                <td>{{ order.fecha_actualizacion }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts_content %}
+<script>
+    const menus = [
+        {% for menu in menus %}
+            { id: "{{ menu.id }}", nombre: "{{ menu.nombre }}" },
+        {% endfor %}
+    ];
+
+    function fillOrderForm(id, cliente_id, estado, details) {
+        document.getElementById('order_id').value = id;
+        document.getElementById('order_cliente').value = cliente_id;
+        document.getElementById('order_estado').value = estado;
+        const platillosDiv = document.getElementById('order-platillos');
+        platillosDiv.innerHTML = ''; // Limpiar los platillos existentes
+
+        details.forEach(detail => {
+            const newPlatillo = document.createElement('div');
+            newPlatillo.className = 'order-platillo';
+            newPlatillo.innerHTML = `
+                <select name="menu" class="menu-select" id="order_the_menu" >
+                    ${menus.map(menu => `<option value="${menu.id}" ${menu.id == detail.menu_id ? 'selected' : ''}>${menu.nombre}</option>`).join('')}
+                </select>
+                <input type="number" name="cantidad" min="1" value="${detail.cantidad}" class="menu-cantidad">
+                <button type="button" class="remove-platillo">X</button>
+            `;
+            platillosDiv.appendChild(newPlatillo);
+        });
+    }
+</script>
+<script src="{% static 'js/orders.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Sistema de Restaurante ADM</title>
+    {% load static %}
+    <link rel="preload" as="image" href="{% static 'images/background.webp' %}">
+    <link rel="stylesheet" href="{% static 'css/login_style.css' %}?v=1.0">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Inicia Sesión</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit">Acceder</button>
+        </form>
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <button class="btn-admin" onclick="location.href='/admin/'">Admin</button>
+</body>
+</html>
